@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html ng-app="ItemStore">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+  </head>
+  <body ng-controller="StoreController as store">  
+
+	<li class="list-group-item" ng-repeat="product in store.products">
+	<div style="margin:10px">              
+        <h1>{{product.name}}</h1>
+        <h2>{{product.price | currency}}</h2>
+		<button ng-show="{{product.forSale}}">Buy</button>      
+    </div>
+		<div class="panel">
+			<h4> Reviews </h4>
+			<blockquote ng-repeat = "review in product.reviews">
+			<b>Stars: {{review.stars}}</b>
+			   {{review.body}}
+			   <cite>by: {{review.author}}</cite>
+			</blockquote>
+			<form name="reviewForm" ng-controller = "ReviewController as reviewCtrl" 
+									ng-submit="reviewCtrl.addReview(product)">
+			<blockquote>
+			   <b>Stars: {{reviewCtrl.review.stars}}</b>
+			   {{reviewCtrl.review.body}}
+			   <cite>by: {{reviewCtrl.review.author}}</cite>
+			</blockquote>
+			<select ng-model = "reviewCtrl.review.stars">
+				<option value="1">1 star</option>
+				<option value="2">2 stars</option>
+				<option value="3">3 stars</option>
+				<option value="4">4 stars</option>
+				<option value="5">5 stars</option>
+			</select>
+			<textarea ng-model = "reviewCtrl.review.body"></textarea>
+			<label>by:</label>
+			<input ng-model = "reviewCtrl.review.author" type="email" />
+			<input type="submit" value="Submit" />
+		  </form>
+
+		</div>
+
+
+	</li>
+	</div>
+  </body>
+</html>
